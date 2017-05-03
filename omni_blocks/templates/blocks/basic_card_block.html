@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+
+<section class="card">
+    <header class="card_header">
+        {{ self.title }}
+    </header>
+
+    {% if self.image %}
+        {% image self.image height-200 class="card_image" %}
+    {% endif %}
+
+    {{ self.link }}
+
+    {{ self.description }}
+</section>

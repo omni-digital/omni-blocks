@@ -1,0 +1,9 @@
+{% load wagtailimages_tags %}
+
+<div class="col">
+    {% if item.image %}
+        {% image item.image height-600 %}
+    {% endif %}
+
+    {{ item.paragraph }}
+</div>
