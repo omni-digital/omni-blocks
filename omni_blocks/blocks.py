@@ -153,6 +153,7 @@ class ImageGridBlock(ListBlock):
         """Wagtail properties."""
         icon = 'image'
         label = 'Image Grid'
+        template = 'blocks/image_grid_block.html'
 
 
 class LinkedImageBlock(blocks.StructBlock):
@@ -182,6 +183,7 @@ class LinkedImageGridBlock(ListBlock):
         """Wagtail properties."""
         icon = 'image'
         label = 'Linked Image Grid'
+        template = 'blocks/linked_image_grid_block.html'
 
 
 class ULBlock(ListBlock):
@@ -226,12 +228,11 @@ class PullQuoteBlock(blocks.CharBlock):
     def render(self, value):
         """
         Renders the block contents and returns them as a safe string.
-
         :param value: The value from the database to render
         :return: Safe String - Rendered block content
         """
         return mark_safe(
-            '<aside class="{pq}"><{bq}><p>{contents}</p></{bq}></aside>'.format(
+            '<{bq} class="pquote"><p>{contents}</p></{bq}>'.format(
                 pq='pquote',
                 bq='blockquote',
                 contents=self.render_basic(value),

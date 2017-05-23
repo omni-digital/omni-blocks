@@ -1,0 +1,12 @@
+{% load wagtailimages_tags %}
+
+
+<ul class="image-grid">
+    {% for child in self %}
+        {% cycle 'col1' 'col2' 'col3' as colnum silent %}
+        {% image child fill-300x300-c100 as im %}
+        <li class="image-grid__item image-grid__item__{{ colnum }}">
+            <img src="{{ im.url }}" alt="" />
+        </li>
+    {% endfor %}
+</ul>
