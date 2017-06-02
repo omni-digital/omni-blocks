@@ -232,7 +232,7 @@ class PullQuoteBlock(blocks.CharBlock):
         :return: Safe String - Rendered block content
         """
         return mark_safe(
-            '<{bq} class="pquote"><p>{contents}</p></{bq}>'.format(
+            '<{bq} class="pquote">{contents}</{bq}>'.format(
                 pq='pquote',
                 bq='blockquote',
                 contents=self.render_basic(value),
