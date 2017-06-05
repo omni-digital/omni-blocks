@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
