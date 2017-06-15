@@ -160,6 +160,21 @@ class TestHBlock(TestCase):
         """Test HBlock.render renders as expected."""
         block = internal_blocks.HBlock('h2')
         expected = '<h2>some text</h2>'
-        result = block.render('some text')
+        result = block.render('some text', context={})
+
+        self.assertEqual(result, expected)
+
+
+class TestPullQuoteBlock(TestCase):
+    """Tests for the PullQuoteBlock."""
+    def test_parent_class(self):
+        """Test PullQuoteBlock is a subclass of CharBlock."""
+        self.assertTrue(issubclass(internal_blocks.PullQuoteBlock, blocks.CharBlock))
+
+    def test_render(self):
+        """Test PullQuoteBlock.render renders as expected."""
+        block = internal_blocks.PullQuoteBlock()
+        expected = '<blockquote class="pquote">some text</blockquote>'
+        result = block.render('some text', context={})
 
         self.assertEqual(result, expected)

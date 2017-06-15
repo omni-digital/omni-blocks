@@ -70,7 +70,7 @@ class HBlock(blocks.CharBlock):
             **kwargs
         )
 
-    def render(self, value):
+    def render(self, value, context=None):
         """
         Renders the block contents and returns them as a safe string.
 
@@ -79,7 +79,7 @@ class HBlock(blocks.CharBlock):
         """
         return mark_safe('<{tag}>{contents}</{tag}>'.format(
             tag=self.tag,
-            contents=self.render_basic(value)
+            contents=self.render_basic(value, context=context)
         ))
 
 
@@ -227,7 +227,7 @@ class OLBlock(ULBlock):
 
 class PullQuoteBlock(blocks.CharBlock):
     """ """
-    def render(self, value):
+    def render(self, value, context=None):
         """
         Renders the block contents and returns them as a safe string.
         :param value: The value from the database to render
@@ -237,7 +237,7 @@ class PullQuoteBlock(blocks.CharBlock):
             '<{bq} class="pquote">{contents}</{bq}>'.format(
                 pq='pquote',
                 bq='blockquote',
-                contents=self.render_basic(value),
+                contents=self.render_basic(value, context=context),
             )
         )
 
