@@ -26,6 +26,7 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
+        'wagtail.contrib.table_block',
         'omni_blocks',
         ...
     )
