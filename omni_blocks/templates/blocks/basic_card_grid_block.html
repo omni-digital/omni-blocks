@@ -1,0 +1,5 @@
+<ul class="card-grid">
+    {% for child in self %}
+        {% include 'blocks/basic_card_block.html' with card=child %}
+    {% endfor %}
+</ul>

@@ -20,7 +20,7 @@ class TestBodyStreamBlock(TestCase):
     def test_attributes(self):
         """Test BodyStreamBlock's attributes are correct."""
         expected = [
-            'basic_card',
+            'basic_card_grid',
             'block_quote',
             'google_map',
             'h1',
@@ -41,11 +41,11 @@ class TestBodyStreamBlock(TestCase):
         ]
         self.assertEqual(list(self.children.keys()), expected)
 
-    def test_basic_card(self):
-        """Test BodyStreamBlock.basic_card has the expected parent."""
-        block = self.children.get('basic_card')
+    def test_basic_card_grid(self):
+        """Test BodyStreamBlock.basic_card_grid has the expected parent."""
+        block = self.children.get('basic_card_grid')
 
-        self.assertIsInstance(block, internal_blocks.BasicCardBlock)
+        self.assertIsInstance(block, internal_blocks.BasicCardGridBlock)
 
     def test_block_quote(self):
         """Test BodyStreamBlock.block_quote has the expected parent."""
