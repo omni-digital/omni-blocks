@@ -124,6 +124,14 @@ class TitledLinkBlock(blocks.StructBlock):
         template = 'blocks/titled_link_block.html'
 
 
+class ButtonBlock(TitledLinkBlock):
+    class Meta(object):
+        """Wagtail properties."""
+        icon = 'placeholder'
+        label = 'Button Block'
+        template = 'blocks/button_block.html'
+
+
 class BasicCardBlock(blocks.StructBlock):
     """A basic material card block."""
     title = HBlock(tag='h2')
@@ -271,6 +279,7 @@ class BodyStreamBlock(blocks.StreamBlock):
     """Stream block for the body field on all pages."""
     basic_card_grid = BasicCardGridBlock()
     block_quote = blocks.BlockQuoteBlock()
+    button = ButtonBlock()
     google_map = GoogleMapBlock()
     h1 = HBlock(tag='h1')
     h2 = HBlock(tag='h2')
