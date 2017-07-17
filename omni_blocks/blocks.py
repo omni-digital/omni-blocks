@@ -128,7 +128,7 @@ class BasicCardBlock(blocks.StructBlock):
     """A basic material card block."""
     title = HBlock(tag='h2')
     image = ImageChooserBlock(required=False)
-    link = TitledLinkBlock(required=False)
+    link = LinkBlock(required=False)
     description = blocks.RichTextBlock(required=False)
 
     class Meta(object):
@@ -136,6 +136,26 @@ class BasicCardBlock(blocks.StructBlock):
         template = 'blocks/basic_card_block.html'
         icon = 'form'
         label = 'Basic card'
+
+
+class BasicCardGridBlock(ListBlock):
+    """Block for displaying a grid of cards."""
+    def __init__(self, **kwargs):
+        """
+        Instantiates an ImageChooserBlock instance,
+        then passes it to the super class for list rendering.
+
+        :param kwargs: Default keyword args
+        :type kwargs: {}
+        """
+        child_block = BasicCardBlock(required=True)
+        super(BasicCardGridBlock, self).__init__(child_block, **kwargs)
+
+    class Meta(object):
+        """Wagtail properties."""
+        icon = 'form'
+        label = 'Basic Card Grid'
+        template = 'blocks/basic_card_grid_block.html'
 
 
 class ImageGridBlock(ListBlock):
@@ -249,7 +269,7 @@ class PullQuoteBlock(blocks.CharBlock):
 
 class BodyStreamBlock(blocks.StreamBlock):
     """Stream block for the body field on all pages."""
-    basic_card = BasicCardBlock()
+    basic_card_grid = BasicCardGridBlock()
     block_quote = blocks.BlockQuoteBlock()
     google_map = GoogleMapBlock()
     h1 = HBlock(tag='h1')
