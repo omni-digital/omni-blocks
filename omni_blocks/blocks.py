@@ -253,6 +253,16 @@ class OLBlock(ULBlock):
         label = 'Ordered List'
 
 
+class PageChooserTemplateBlock(blocks.StructBlock):
+    """Page chooser block that renders from a template."""
+    page = blocks.PageChooserBlock(icon='doc-empty-inverse')
+
+    class Meta(object):
+        """Wagtail properties."""
+        icon = 'doc-empty-inverse'
+        template = 'blocks/page_chooser_block.html'
+
+
 class PullQuoteBlock(blocks.CharBlock):
     """ """
     def render(self, value, context=None):
@@ -292,7 +302,7 @@ class BodyStreamBlock(blocks.StreamBlock):
     paragraph = blocks.RichTextBlock()
     pull_quote = PullQuoteBlock()
     raw_html = RawHTMLBlock()
-    related_page = blocks.PageChooserBlock(icon='doc-empty-inverse')
+    related_page = PageChooserTemplateBlock()
     table = TableBlock()
     two_column = TwoColumnBlock()
     unordered_list = ULBlock()
