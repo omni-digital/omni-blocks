@@ -22,6 +22,7 @@ class TestBodyStreamBlock(TestCase):
         expected = [
             'basic_card_grid',
             'block_quote',
+            'button',
             'google_map',
             'h1',
             'h2',
@@ -52,6 +53,12 @@ class TestBodyStreamBlock(TestCase):
         block = self.children.get('block_quote')
 
         self.assertIsInstance(block, blocks.BlockQuoteBlock)
+
+    def test_button_block(self):
+        """Test BodyStreamBlock.button_block has the expected parent."""
+        block = self.children.get('button')
+
+        self.assertIsInstance(block, internal_blocks.ButtonBlock)
 
     def test_google_map(self):
         """Test BodyStreamBlock.google_map has the expected parent."""
