@@ -136,7 +136,7 @@ class TestBodyStreamBlock(TestCase):
         """Test BodyStreamBlock.related_page has the expected parent."""
         block = self.children.get('related_page')
 
-        self.assertIsInstance(block, blocks.PageChooserBlock)
+        self.assertIsInstance(block, internal_blocks.PageChooserTemplateBlock)
 
     def test_table(self):
         """Test BodyStreamBlock.table has the expected parent."""
