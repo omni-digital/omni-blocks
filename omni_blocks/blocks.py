@@ -110,9 +110,7 @@ class LinkBlock(blocks.StructBlock):
     def render(self, value, context=None):
         """Override the render to get around the above dunder string issue."""
         rendered = super(LinkBlock, self).render(value, context=context)
-        if rendered.endswith('\n'):
-            return rendered[:-1]
-        return rendered
+        return rendered.strip()
 
     class Meta:
         """Wagtail properties."""
