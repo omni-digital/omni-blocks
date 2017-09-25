@@ -59,6 +59,8 @@ TEMPLATES = [
     },
 ]
 
+ROOT_URLCONF = 'tests.urls'
+
 SITE_ID = 1
 
 if django.VERSION >= (1, 10):

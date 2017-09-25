@@ -118,7 +118,7 @@ class LinkBlock(blocks.StructBlock):
         elif 'external_url' in value:
             return value['external_url']
         elif 'internal_url' in value:
-            return value['internal_url']
+            return value['internal_url'].url
         return ''
 
     def to_python(self, value):
