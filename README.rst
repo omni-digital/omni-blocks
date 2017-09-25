@@ -41,3 +41,16 @@ Does the code actually work?
     source <YOURVIRTUALENV>/bin/activate
     (myenv) $ pip install tox
     (myenv) $ tox
+
+Supported Versions
+------------------
+
+Wagtail
+
+* 1.11
+* 1.12 LTS
+
+Django
+
+* 1.10
+* 1.11 LTS
