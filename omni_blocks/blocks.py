@@ -133,8 +133,8 @@ class LinkBlock(blocks.StructBlock):
         """
         return self.get_url_from_value(value)
 
-    def render_basic(self, value, context=None):
-        """Override the render_basic to get around the above dunder string issue."""
+    def render(self, value, context=None):
+        """Override the render to get around the above dunder string issue."""
         return self.get_url_from_value(value)
 
     class Meta:

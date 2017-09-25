@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'taggit',
 
     'wagtail.contrib.table_block',
+    'wagtail.wagtailadmin',
     'wagtail.wagtailimages',
     'wagtail.wagtailcore',
     'wagtail.wagtailusers',
