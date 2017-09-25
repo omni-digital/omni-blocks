@@ -122,11 +122,12 @@ class LinkBlock(blocks.StructBlock):
         return ''
 
     def to_python(self, value):
-        """Override the to_python method to skip
+        """Override the to_python method to avoid the built in wagtail rendering mechanisms.
 
         The change made in Wagtail 1.12 here: https://github.com/wagtail/wagtail/commit/8a055addad739ff73f6e84ba553b28389122299f
         has broken how we have implemented this block, as StructValue no longer implements __str__
         we get the literal value instead: `StructValue([('external_url', 'https://omni-digital.co.uk'), ('internal_url', None)])`
+        when rendering through a template.
 
         This override ensures that nested representations of this StructBlock render as expected.
         """
