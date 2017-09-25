@@ -2,14 +2,12 @@
 
 <section class="card">
     <header class="card_header">
-        {{ card.title }}
+      <a href="{{ self.link }}">{{ self.title }}</a>
     </header>
 
-    {% if card.image %}
-        {% image card.image height-200 class="card_image" %}
+    {% if self.image %}
+        {% image self.image height-200 class="card_image" %}
     {% endif %}
 
-    {{ card.link }}
-
-    {{ card.description }}
+    {{ self.description }}
 </section>
