@@ -1,1 +1,2 @@
-<a href="{{ self.link }}">{{ self.title }}</a>
+{% load wagtailcore_tags %}
+<a href="{% include_block self.link %}">{{ self.title }}</a>

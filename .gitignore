@@ -3,3 +3,6 @@
 .coverage
 *.pyc
 omni_blocks.egg-info
+images
+original_images
+dist

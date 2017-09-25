@@ -4,6 +4,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.blocks.field_block import RawHTMLBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 
 from omni_blocks import blocks as internal_blocks
 
@@ -244,3 +245,56 @@ class TestLinkBlock(TestCase):
         )
         card_content = bc_block.render(value)
         self.assertIn('<a href="/omni-digital/">cool</a>', card_content)
+
+
+class TestLinkedImageBlock(TestCase):
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_image_link(self):
+        """Ensure that the image link renders correctly"""
+        linked_image_block = internal_blocks.LinkedImageBlock()
+        value = linked_image_block.to_python({
+            'image': self.image.pk,
+            'link': {
+                'external_url': 'https://omni-digital.co.uk',
+            },
+        })
+        self.assertIn(
+            '<a href="https://omni-digital.co.uk"><img alt="Test image"', linked_image_block.render(value))
+
+
+class TestTitledLinkBlock(TestCase):
+
+    def test_renders(self):
+        """Ensure that the block renders as expected."""
+        titled_link_block = internal_blocks.TitledLinkBlock()
+        value = titled_link_block.to_python({
+            'title': 'Omni Digital',
+            'link': {
+                'external_url': 'https://omni-digital.co.uk',
+            },
+        })
+        self.assertIn(
+            '<a href="https://omni-digital.co.uk">Omni Digital</a>', titled_link_block.render(value))
+
+
+class TestButtonBlock(TestCase):
+
+    def test_renders(self):
+        """Ensure that the block renders as expected."""
+        button_block = internal_blocks.ButtonBlock()
+        value = button_block.to_python({
+            'title': 'Omni Digital',
+            'link': {
+                'external_url': 'https://omni-digital.co.uk',
+            },
+        })
+        self.assertIn(
+            '<p class="button">', button_block.render(value))
+        self.assertIn(
+            '<a href="https://omni-digital.co.uk">Omni Digital</a>', button_block.render(value))
