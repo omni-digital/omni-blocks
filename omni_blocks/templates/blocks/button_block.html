@@ -1,3 +1,4 @@
-<p class='button'>
-    <a href='{{ value.link }}'>{{ value.title }}</a>
+{% load wagtailcore_tags %}
+<p class="button">
+    <a href="{% include_block value.link %}">{{ value.title }}</a>
 </p>
