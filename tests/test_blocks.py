@@ -203,7 +203,7 @@ class TestLinkBlock(TestCase):
         link_block = internal_blocks.LinkBlock()
         value = link_block.to_python({
             'external_url': 'https://omni-digital.co.uk',
-            'internal_url': self.page,
+            'internal_url': self.page.pk,
         })
         content = link_block.render(value)
         self.assertEqual('https://omni-digital.co.uk', content)
@@ -216,33 +216,17 @@ class TestLinkBlock(TestCase):
                 'title': 'cool',
                 'link': {
                     'external_url': 'https://omni-digital.co.uk',
-                    'internal_url': self.page,
+                    'internal_url': self.page.pk,
                 }
             }
         )
         card_content = bc_block.render(value)
         self.assertIn('<a href="https://omni-digital.co.uk">cool</a>', card_content)
 
-    def test_get_url_from_value(self):
-        """Ensure that the get_url_from_value method is behaving as expected."""
-        test_cases = [
-            ('cool', 'cool'),
-            ({'bad': ''}, ''),
-            ({'external_url': 'https://omni-digital.co.uk'}, 'https://omni-digital.co.uk'),
-            ({'internal_url': self.page}, '/omni-digital/'),
-            ({
-                 'internal_url': self.page,
-                 'external_url': 'https://google.com',
-             }, 'https://google.com'),
-        ]
-
-        for tc in test_cases:
-            self.assertEqual(internal_blocks.LinkBlock.get_url_from_value(tc[0]), tc[1])
-
     def test_internal_url_renders(self):
         """Ensure that the internal_url renders as expected."""
         link_block = internal_blocks.LinkBlock()
-        value = link_block.to_python({
+        value = link_block.render({
             'internal_url': self.page,
         })
         self.assertEqual(value, '/omni-digital/')
@@ -254,7 +238,7 @@ class TestLinkBlock(TestCase):
             {
                 'title': 'cool',
                 'link': {
-                    'internal_url': self.page,
+                    'internal_url': self.page.pk,
                 }
             }
         )

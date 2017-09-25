@@ -1,0 +1,7 @@
+{% spaceless %}
+{% if self.external_url %}
+    {{ self.external_url }}
+{% else %}
+    {{ self.internal_url.url }}
+{% endif %}
+{% endspaceless %}

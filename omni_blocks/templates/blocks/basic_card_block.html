@@ -1,8 +1,8 @@
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 <section class="card">
     <header class="card_header">
-      <a href="{{ self.link }}">{{ self.title }}</a>
+      <a href="{% include_block self.link %}">{{ self.title }}</a>
     </header>
 
     {% if self.image %}
