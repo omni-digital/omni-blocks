@@ -107,39 +107,17 @@ class LinkBlock(blocks.StructBlock):
 
         return cleaned_data
 
-    @staticmethod
-    def get_url_from_value(value):
-        """Conditional logic which determines whether which URL to render.
-
-        Replaces the logic that was previously rendering in the link_block template.
-        """
-        if isinstance(value, str):
-            return value
-        elif 'external_url' in value:
-            return value['external_url']
-        elif 'internal_url' in value:
-            return value['internal_url'].url
-        return ''
-
-    def to_python(self, value):
-        """Override the to_python method to avoid the built in wagtail rendering mechanisms.
-
-        The change made in Wagtail 1.12 here: https://github.com/wagtail/wagtail/commit/8a055addad739ff73f6e84ba553b28389122299f
-        has broken how we have implemented this block, as StructValue no longer implements __str__
-        we get the literal value instead: `StructValue([('external_url', 'https://omni-digital.co.uk'), ('internal_url', None)])`
-        when rendering through a template.
-
-        This override ensures that nested representations of this StructBlock render as expected.
-        """
-        return self.get_url_from_value(value)
-
     def render(self, value, context=None):
         """Override the render to get around the above dunder string issue."""
-        return self.get_url_from_value(value)
+        rendered = super(LinkBlock, self).render(value, context=context)
+        if rendered.endswith('\n'):
+            return rendered[:-1]
+        return rendered
 
     class Meta:
         """Wagtail properties."""
         label = 'Link'
+        template = 'blocks/link_block.html'
 
 
 class TitledLinkBlock(blocks.StructBlock):
