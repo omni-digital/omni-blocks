@@ -185,3 +185,32 @@ class TestPullQuoteBlock(TestCase):
         result = block.render('some text', context={})
 
         self.assertEqual(result, expected)
+
+
+class TestLinkBlock(TestCase):
+
+    def test_renders(self):
+        """Ensure the block renders in isolation."""
+        link_block = internal_blocks.LinkBlock()
+        value = link_block.to_python({
+            'external_url': 'https://omni-digital.co.uk',
+            'internal_url': 0,
+        })
+        content = link_block.render(value)
+        self.assertEqual('https://omni-digital.co.uk', content)
+
+    def test_renders_when_nested(self):
+        """Ensure the block renders as expected when it's nested within another block"""
+        bc_block = internal_blocks.BasicCardBlock()
+        value = bc_block.to_python(
+            {
+                'title': 'cool',
+                'link': {
+                    'external_url': 'https://omni-digital.co.uk',
+                    'internal_url': 0,
+                }
+            }
+        )
+        card_content = bc_block.render(value)
+        self.assertIn('<a href="https://omni-digital.co.uk">cool</a>', card_content)
+
