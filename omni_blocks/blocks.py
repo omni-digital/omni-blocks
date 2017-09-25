@@ -107,31 +107,38 @@ class LinkBlock(blocks.StructBlock):
 
         return cleaned_data
 
+    @staticmethod
+    def get_url_from_value(value):
+        """Conditional logic which determines whether which URL to render.
+
+        Replaces the logic that was previously rendering in the link_block template.
+        """
+        if isinstance(value, str):
+            return value
+        elif 'external_url' in value:
+            return value['external_url']
+        elif 'internal_url' in value:
+            return value['internal_url']
+        return ''
+
     def to_python(self, value):
-        """Override the to_python method and ensure that the template gets rendered.
+        """Override the to_python method to skip
 
         The change made in Wagtail 1.12 here: https://github.com/wagtail/wagtail/commit/8a055addad739ff73f6e84ba553b28389122299f
         has broken how we have implemented this block, as StructValue no longer implements __str__
         we get the literal value instead: `StructValue([('external_url', 'https://omni-digital.co.uk'), ('internal_url', None)])`
 
-        This solution intercepts the to_python method in the recursion chain when a parent block is being rendered
-        and manually renders the template. It is not an elegant solution and our implementation of
-        LinkBlock should now be viewed as technical debt.
+        This override ensures that nested representations of this StructBlock render as expected.
         """
-        struct_value = super(LinkBlock, self).to_python(value)
-        rendered = struct_value.__html__().strip()
-        return rendered
+        return self.get_url_from_value(value)
 
-    def render(self, value, context=None):
-        """Override the render method to remove the final newline if it's present."""
-        rendered = super(LinkBlock, self).render(value, context=context)
-        if rendered.endswith('\n'):
-            return rendered[:-1]
-        return rendered
+    def render_basic(self, value, context=None):
+        """Override the render_basic to get around the above dunder string issue."""
+        return self.get_url_from_value(value)
 
     class Meta:
+        """Wagtail properties."""
         label = 'Link'
-        template = 'blocks/link_block.html'
 
 
 class TitledLinkBlock(blocks.StructBlock):

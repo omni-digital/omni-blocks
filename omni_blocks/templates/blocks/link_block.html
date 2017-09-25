@@ -1,9 +1,0 @@
-{% spaceless %}
-{% if self.external_url %}
-    {{ self.external_url }}
-{% elif self.internal_url %}
-    {{ self.internal_url.url }}
-{% else %}
-    {{ self }}
-{% endif %}
-{% endspaceless %}
