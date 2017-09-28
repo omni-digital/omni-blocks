@@ -15,15 +15,18 @@ class ColumnBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=False)
     paragraph = blocks.RichTextBlock(required=False)
 
+    both_fields_error = 'Please add either an image or a paragraph.'
+    no_data_error = 'Please use either image or paragraph, not both'
+
     def clean(self, value):
         cleaned_data = super(ColumnBlock, self).clean(value)
         errors = {}
-        if cleaned_data['image'] and cleaned_data['paragraph']:
-            msg = 'Please use either image or paragraph, not both'
+        if cleaned_data.get('image') and cleaned_data.get('paragraph'):
+            msg = self.both_fields_error
             errors['image'] = errors['paragraph'] = ValidationError(msg)
 
-        if not cleaned_data['image'] and not cleaned_data['paragraph']:
-            msg = 'Please add either an image or a paragraph.'
+        if not cleaned_data.get('image') and not cleaned_data.get('paragraph'):
+            msg = self.no_data_error
             errors['image'] = errors['paragraph'] = ValidationError(msg)
 
         if errors:
@@ -91,15 +94,18 @@ class LinkBlock(blocks.StructBlock):
         required=False,
     )
 
+    both_urls_error = 'Please select either internal URL or external URL, not both.'
+    no_urls_error = 'Please select an internal URL or add an external URL.'
+
     def clean(self, value):
         cleaned_data = super(LinkBlock, self).clean(value)
         errors = {}
-        if cleaned_data['external_url'] and cleaned_data['internal_url']:
-            msg = 'Please select either internal URL or extrenal URL, not both.'
+        if cleaned_data.get('external_url') and cleaned_data.get('internal_url'):
+            msg = self.both_urls_error
             errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
-        if not cleaned_data['external_url'] and not cleaned_data['internal_url']:
-            msg = 'Please select an internal URL or add an extrenal URL.'
+        if not cleaned_data.get('external_url') and not cleaned_data.get('internal_url'):
+            msg = self.no_urls_error
             errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
         if errors:

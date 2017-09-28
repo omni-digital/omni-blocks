@@ -1,16 +1,60 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.utils.crypto import get_random_string
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.blocks.field_block import RawHTMLBlock
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 
 from omni_blocks import blocks as internal_blocks
 
 
+class ColumnBlock(TestCase):
+    """ Tests for the internal_blocks.ColumnBlock """
+
+    def setUp(self):
+        self.block = internal_blocks.ColumnBlock
+        self.image = Image.objects.create(
+            title='Test image',
+            file=get_test_image_file(),
+        )
+
+    def test_parent_class(self):
+        """Test ColumnBlock is a subclass of StructBlock."""
+        self.assertTrue(issubclass(self.block, blocks.StructBlock))
+
+    def test_validation_image_and_paragraph(self):
+        """Test ColumnBlock.clean() validates data as expected."""
+        block = self.block()
+        data = {
+            'image': self.image.pk,
+            'paragraph': get_random_string()
+        }
+        with self.assertRaises(ValidationError) as context:
+            block.clean(block.to_python(data))
+        self.assertIn(block.both_fields_error, context.exception.messages)
+
+    def test_validation_not_image_and_not_paragraph(self):
+        """Test ColumnBlock.clean() validates data as expected."""
+        block = self.block()
+        with self.assertRaises(ValidationError) as context:
+            block.clean(block.value_from_datadict({}, {}, ''))
+        self.assertIn(block.no_data_error, context.exception.messages)
+
+    def test_validation_data(self):
+        """Test ColumnBlock.clean() validates data as expected."""
+        block = self.block()
+        key = 'paragraph'
+        val = get_random_string()
+        data = block.clean(block.to_python({key: val}))
+        self.assertIn(val, str(data[key]))
+
+
 class TestBodyStreamBlock(TestCase):
     """Tests for the BodyStreamBlock."""
+
     def setUp(self):
         self.block = internal_blocks.BodyStreamBlock
         self.children = self.block().child_blocks
@@ -159,8 +203,25 @@ class TestBodyStreamBlock(TestCase):
         self.assertIsInstance(block, internal_blocks.ULBlock)
 
 
+class TestOLBlock(TestCase):
+    """Tests for the OLBlock."""
+
+    def test_parent_class(self):
+        """Test OLBlock is a subclass of ULBlock."""
+        self.assertTrue(issubclass(internal_blocks.OLBlock, internal_blocks.ULBlock))
+
+    def test_render_basic(self):
+        """ Test block rendering """
+        block = internal_blocks.OLBlock()
+        self.assertEqual(
+            '<ol><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ol>',
+            block.render_basic(('1', '2', '3', '4'))
+        )
+
+
 class TestHBlock(TestCase):
     """Tests for the HBlock."""
+
     def test_parent_class(self):
         """Test HBlock is a subclass of CharBlock."""
         self.assertTrue(issubclass(internal_blocks.HBlock, blocks.CharBlock))
@@ -176,6 +237,7 @@ class TestHBlock(TestCase):
 
 class TestPullQuoteBlock(TestCase):
     """Tests for the PullQuoteBlock."""
+
     def test_parent_class(self):
         """Test PullQuoteBlock is a subclass of CharBlock."""
         self.assertTrue(issubclass(internal_blocks.PullQuoteBlock, blocks.CharBlock))
@@ -190,7 +252,6 @@ class TestPullQuoteBlock(TestCase):
 
 
 class TestLinkBlock(TestCase):
-
     def setUp(self):
         self.page = Page.objects.create(
             title='Omni',
@@ -246,9 +307,36 @@ class TestLinkBlock(TestCase):
         card_content = bc_block.render(value)
         self.assertIn('<a href="/omni-digital/">cool</a>', card_content)
 
+    def test_data_validation_external_and_internal_url(self):
+        """Ensure that the data is validated as expected."""
+        link_block = internal_blocks.LinkBlock()
+        with self.assertRaises(ValidationError) as context:
+            link_block.clean({
+                'external_url': 'https://omni-digital.co.uk',
+                'internal_url': self.page.pk,
+            })
+        self.assertIn(link_block.both_urls_error, context.exception.messages)
+
+    def test_data_validation_no_urls(self):
+        """Ensure that the data is validated as expected."""
+        link_block = internal_blocks.LinkBlock()
+        with self.assertRaises(ValidationError) as context:
+            link_block.clean({
+                'external_url': None,
+                'internal_url': None
+            })
+        self.assertIn(link_block.no_urls_error, context.exception.messages)
+
+    def test_data_validation(self):
+        """Ensure that the data is validated as expected."""
+        link_block = internal_blocks.LinkBlock()
+        key = 'external_url'
+        value = 'https://omni-digital.co.uk'
+        data = link_block.clean({key: value})
+        self.assertIn(value, str(data[key]))
+
 
 class TestLinkedImageBlock(TestCase):
-
     def setUp(self):
         self.image = Image.objects.create(
             title="Test image",
@@ -269,7 +357,6 @@ class TestLinkedImageBlock(TestCase):
 
 
 class TestTitledLinkBlock(TestCase):
-
     def test_renders(self):
         """Ensure that the block renders as expected."""
         titled_link_block = internal_blocks.TitledLinkBlock()
@@ -284,7 +371,6 @@ class TestTitledLinkBlock(TestCase):
 
 
 class TestButtonBlock(TestCase):
-
     def test_renders(self):
         """Ensure that the block renders as expected."""
         button_block = internal_blocks.ButtonBlock()
