@@ -1,6 +1,7 @@
 .idea
 .tox
 .coverage
+htmlcov
 *.pyc
 omni_blocks.egg-info
 images

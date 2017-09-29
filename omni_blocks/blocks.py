@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.blocks.field_block import RawHTMLBlock, URLBlock
@@ -15,15 +16,18 @@ class ColumnBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=False)
     paragraph = blocks.RichTextBlock(required=False)
 
+    both_fields_error = _('Please add either an image or a paragraph.')
+    no_data_error = _('Please use either image or paragraph, not both')
+
     def clean(self, value):
         cleaned_data = super(ColumnBlock, self).clean(value)
         errors = {}
-        if cleaned_data['image'] and cleaned_data['paragraph']:
-            msg = 'Please use either image or paragraph, not both'
+        if cleaned_data.get('image') and cleaned_data.get('paragraph'):
+            msg = self.both_fields_error
             errors['image'] = errors['paragraph'] = ValidationError(msg)
 
-        if not cleaned_data['image'] and not cleaned_data['paragraph']:
-            msg = 'Please add either an image or a paragraph.'
+        if not cleaned_data.get('image') and not cleaned_data.get('paragraph'):
+            msg = self.no_data_error
             errors['image'] = errors['paragraph'] = ValidationError(msg)
 
         if errors:
@@ -61,6 +65,7 @@ class GoogleMapBlock(blocks.StructBlock):
 
 class HBlock(blocks.CharBlock):
     """A block for displaying headings."""
+
     def __init__(self, tag, icon='title', classname='title', *args, **kwargs):
         self.tag = tag
         super(HBlock, self).__init__(
@@ -91,15 +96,18 @@ class LinkBlock(blocks.StructBlock):
         required=False,
     )
 
+    both_urls_error = _('Please select either internal URL or external URL, not both.')
+    no_urls_error = _('Please select an internal URL or add an external URL.')
+
     def clean(self, value):
         cleaned_data = super(LinkBlock, self).clean(value)
         errors = {}
-        if cleaned_data['external_url'] and cleaned_data['internal_url']:
-            msg = 'Please select either internal URL or extrenal URL, not both.'
+        if cleaned_data.get('external_url') and cleaned_data.get('internal_url'):
+            msg = self.both_urls_error
             errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
-        if not cleaned_data['external_url'] and not cleaned_data['internal_url']:
-            msg = 'Please select an internal URL or add an extrenal URL.'
+        if not cleaned_data.get('external_url') and not cleaned_data.get('internal_url'):
+            msg = self.no_urls_error
             errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
         if errors:
@@ -154,6 +162,7 @@ class BasicCardBlock(blocks.StructBlock):
 
 class BasicCardGridBlock(ListBlock):
     """Block for displaying a grid of cards."""
+
     def __init__(self, **kwargs):
         """
         Instantiates an ImageChooserBlock instance,
@@ -174,6 +183,7 @@ class BasicCardGridBlock(ListBlock):
 
 class ImageGridBlock(ListBlock):
     """Block for displaying a grid of images."""
+
     def __init__(self, **kwargs):
         """
         Instantiates an ImageChooserBlock instance,
@@ -204,6 +214,7 @@ class LinkedImageBlock(blocks.StructBlock):
 
 class LinkedImageGridBlock(ListBlock):
     """Block for displaying a grid of linked images."""
+
     def __init__(self, **kwargs):
         """
         Instantiates an LinkedImageBlock instances,
@@ -224,6 +235,7 @@ class LinkedImageGridBlock(ListBlock):
 
 class ULBlock(ListBlock):
     """Block for displaying an unordered of rich text."""
+
     def __init__(self, **kwargs):
         """
         Instantiates an RichTextBlock instance,
@@ -243,6 +255,7 @@ class ULBlock(ListBlock):
 
 class OLBlock(ULBlock):
     """Block for displaying an ordered of rich text."""
+
     def render_basic(self, value, context=None):
         children = format_html_join(
             '\n', '<li>{0}</li>',
@@ -271,6 +284,7 @@ class PageChooserTemplateBlock(blocks.StructBlock):
 
 class PullQuoteBlock(blocks.CharBlock):
     """ """
+
     def render(self, value, context=None):
         """
         Renders the block contents and returns them as a safe string.
