@@ -282,33 +282,30 @@ class PageChooserTemplateBlock(blocks.StructBlock):
         template = 'blocks/page_chooser_block.html'
 
 
-class PullQuoteBlock(blocks.CharBlock):
-    """ """
+class QuoteBlock(blocks.BlockQuoteBlock):
+    """ BlockQuote with external template """
 
-    def render(self, value, context=None):
-        """
-        Renders the block contents and returns them as a safe string.
-        :param value: The value from the database to render
-        :return: Safe String - Rendered block content
-        """
-        return mark_safe(
-            '<{bq} class="pquote">{contents}</{bq}>'.format(
-                pq='pquote',
-                bq='blockquote',
-                contents=self.render_basic(value, context=context),
-            )
-        )
+    class Meta(object):
+        """Wagtail properties."""
+        icon = 'openquote'
+        label = 'Quote'
+        template = 'blocks/quote_block.html'
+
+
+class PullQuoteBlock(blocks.CharBlock):
+    """ Blockquote with additional css class """
 
     class Meta(object):
         """Wagtail properties."""
         icon = 'openquote'
         label = 'Pull Quote'
+        template = 'blocks/pull_quote_block.html'
 
 
 class BodyStreamBlock(blocks.StreamBlock):
     """Stream block for the body field on all pages."""
     basic_card_grid = BasicCardGridBlock()
-    block_quote = blocks.BlockQuoteBlock()
+    block_quote = QuoteBlock()
     button = ButtonBlock()
     google_map = GoogleMapBlock()
     h1 = HBlock(tag='h1')
