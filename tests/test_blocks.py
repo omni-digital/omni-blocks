@@ -245,7 +245,8 @@ class TestPullQuoteBlock(TestCase):
     def test_render(self):
         """Test PullQuoteBlock.render renders as expected."""
         block = internal_blocks.PullQuoteBlock()
-        expected = '<blockquote class="pquote">some text</blockquote>\n'
+        expected = '<blockquote class="pullquote"><div class="blockquote__inner">' \
+            '<p>some text</p></div></blockquote>\n'
         result = block.render('some text', context={})
 
         self.assertEqual(result, expected)
@@ -261,7 +262,8 @@ class TestQuoteBlock(TestCase):
     def test_render(self):
         """Test QuoteBlock.render renders as expected."""
         block = internal_blocks.QuoteBlock()
-        expected = '<blockquote>some text</blockquote>\n'
+        expected = '<blockquote><div class="blockquote__inner">' \
+            '<p>some text</p></div></blockquote>\n'
         result = block.render('some text', context={})
 
         self.assertEqual(result, expected)
@@ -304,21 +306,14 @@ class TestLinkBlock(TestCase):
     def test_internal_url_renders(self):
         """Ensure that the internal_url renders as expected."""
         link_block = internal_blocks.LinkBlock()
-        value = link_block.render({
-            'internal_url': self.page,
-        })
+        value = link_block.render({'internal_url': self.page})
         self.assertEqual(value, '/omni-digital/')
 
     def test_internal_url_renders_when_nested(self):
         """Ensure the block renders as expected when it's nested within another block"""
         bc_block = internal_blocks.BasicCardBlock()
         value = bc_block.to_python(
-            {
-                'title': 'cool',
-                'link': {
-                    'internal_url': self.page.pk,
-                }
-            }
+            {'title': 'cool', 'link': {'internal_url': self.page.pk}}
         )
         card_content = bc_block.render(value)
         self.assertIn('<a href="/omni-digital/">cool</a>', card_content)
@@ -337,10 +332,7 @@ class TestLinkBlock(TestCase):
         """Ensure that the data is validated as expected."""
         link_block = internal_blocks.LinkBlock()
         with self.assertRaises(ValidationError) as context:
-            link_block.clean({
-                'external_url': None,
-                'internal_url': None
-            })
+            link_block.clean({'external_url': None, 'internal_url': None})
         self.assertIn(link_block.no_urls_error, context.exception.messages)
 
     def test_data_validation(self):
@@ -369,7 +361,9 @@ class TestLinkedImageBlock(TestCase):
             },
         })
         self.assertIn(
-            '<a href="https://omni-digital.co.uk"><img alt="Test image"', linked_image_block.render(value))
+            '<a href="https://omni-digital.co.uk"><img alt="Test image"',
+            linked_image_block.render(value)
+        )
 
 
 class TestTitledLinkBlock(TestCase):
@@ -383,7 +377,9 @@ class TestTitledLinkBlock(TestCase):
             },
         })
         self.assertIn(
-            '<a href="https://omni-digital.co.uk">Omni Digital</a>', titled_link_block.render(value))
+            '<a href="https://omni-digital.co.uk">Omni Digital</a>',
+            titled_link_block.render(value)
+        )
 
 
 class TestButtonBlock(TestCase):
@@ -396,7 +392,8 @@ class TestButtonBlock(TestCase):
                 'external_url': 'https://omni-digital.co.uk',
             },
         })
+        self.assertIn('<p class="button">', button_block.render(value))
         self.assertIn(
-            '<p class="button">', button_block.render(value))
-        self.assertIn(
-            '<a href="https://omni-digital.co.uk">Omni Digital</a>', button_block.render(value))
+            '<a href="https://omni-digital.co.uk">Omni Digital</a>',
+            button_block.render(value)
+        )
