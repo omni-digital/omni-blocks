@@ -202,8 +202,37 @@ class ImageGridBlock(ListBlock):
         template = 'blocks/image_grid_block.html'
 
 
+class FlowBlock(blocks.StructBlock):
+    """Block for displaying flow or timeline data."""
+    meta_title = blocks.CharBlock(required=True)
+    title = blocks.CharBlock(required=False)
+    body = blocks.RichTextBlock(required=False)
+    image = ImageChooserBlock(required=False)
+    link = LinkBlock(required=False)
+
+
+class FlowListBlock(ListBlock):
+    """."""
+    def __init__(self, **kwargs):
+        """
+        Instantiates FlowBlock instance, then passes it to the super
+        class for list rendering.
+
+        :param kwargs: Default keyword args
+        :type kwargs: {}
+        """
+        child_block = FlowBlock(required=True)
+        super(FlowListBlock, self).__init__(child_block, **kwargs)
+
+    class Meta(object):
+        """Wagtail properties."""
+        icon = 'list-ul'
+        label = 'Flow List'
+        template = 'blocks/flow_list_block.html'
+
+
 class LinkedImageBlock(blocks.StructBlock):
-    """"""
+    """Image block wrapped by a href link."""
     image = ImageChooserBlock(required=True)
     link = LinkBlock(required=True)
 
@@ -312,6 +341,7 @@ class BodyStreamBlock(blocks.StreamBlock):
     h2 = HBlock(tag='h2')
     h3 = HBlock(tag='h3')
     h4 = HBlock(tag='h4')
+    flow_list = FlowListBlock()
     image = ImageChooserBlock()
     image_grid = ImageGridBlock()
     linked_image_grid = LinkedImageGridBlock()
