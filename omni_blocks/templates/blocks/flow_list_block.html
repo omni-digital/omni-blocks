@@ -1,0 +1,47 @@
+{% load wagtailimages_tags %}
+
+
+<ul class="flow-list">
+
+    {% for child in self %}
+
+        <li class="flow-block">
+
+            {% if child.link %}
+                <a href="
+
+                {% if child.link.external_url %}
+                    {{ child.link.external_url }}
+                {% else %}
+                    {{ child.link.internal_url.url }}
+                {% endif %}
+
+                ">
+            {% endif %}
+
+            <h1 class="meta-title">{{ child.meta_title }}</h1>
+
+            <span>|</span>
+
+            {% if child.image %}
+                {% image child.image fill-300x300-c100 as im %}
+                <img src="{{ im.url }}" alt="" />
+            {% endif %}
+
+            {% if child.title %}
+                <h2>{{ child.title }}</h2>
+            {% endif %}
+
+            {% if child.body %}
+                <p>{{ child.body }}</p>
+            {% endif %}
+
+            {% if child.link %}
+                </a>
+            {% endif %}
+
+        </li>
+
+    {% endfor %}
+
+</ul>

@@ -74,6 +74,7 @@ class TestBodyStreamBlock(TestCase):
             'h2',
             'h3',
             'h4',
+            'flow_list',
             'image',
             'image_grid',
             'linked_image_grid',
@@ -397,3 +398,57 @@ class TestButtonBlock(TestCase):
             '<a href="https://omni-digital.co.uk">Omni Digital</a>',
             button_block.render(value)
         )
+
+
+class TestFlowBlock(TestCase):
+    block = internal_blocks.FlowBlock()
+
+    def test_meta_title(self):
+        """Ensure FlowBlock.meta_title is the expected block type."""
+        child_block = self.block.child_blocks['meta_title']
+
+        self.assertIsInstance(child_block, blocks.CharBlock)
+        self.assertTrue(child_block.required)
+
+    def test_title(self):
+        """Ensure FlowBlock.title is the expected block type."""
+        child_block = self.block.child_blocks['title']
+
+        self.assertIsInstance(child_block, blocks.CharBlock)
+        self.assertFalse(child_block.required)
+
+    def test_body(self):
+        """Ensure FlowBlock.body is the expected block type."""
+        child_block = self.block.child_blocks['body']
+
+        self.assertIsInstance(child_block, blocks.RichTextBlock)
+        self.assertFalse(child_block.required)
+
+    def test_image(self):
+        """Ensure FlowBlock.image is the expected block type."""
+        child_block = self.block.child_blocks['image']
+
+        self.assertIsInstance(child_block, ImageChooserBlock)
+        self.assertFalse(child_block.required)
+
+    def test_link(self):
+        """Ensure FlowBlock.link is the expected block type."""
+        child_block = self.block.child_blocks['link']
+
+        self.assertIsInstance(child_block, internal_blocks.LinkBlock)
+        self.assertFalse(child_block.required)
+
+    def test_renders(self):
+        """Ensure FlowBlock renders as expected."""
+        value = self.block.to_python({
+            'meta_title': 'Meta Title',
+            'title': 'Main Title',
+            'body': 'This is the body.',
+            'link': {'external_url': 'https://omni-digital.co.uk'},
+        })
+        response = self.block.render(value)
+
+        self.assertIn('Meta Title', response)
+        self.assertIn('Main Title', response)
+        self.assertIn('This is the body.', response)
+        self.assertIn('https://omni-digital.co.uk', response)
