@@ -7,6 +7,7 @@ from wagtail.wagtailcore.blocks.field_block import RawHTMLBlock
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
+from wagtail_factories import PageFactory, SiteFactory
 
 from omni_blocks import blocks as internal_blocks
 
@@ -452,3 +453,31 @@ class TestFlowBlock(TestCase):
         self.assertIn('Main Title', response)
         self.assertIn('This is the body.', response)
         self.assertIn('https://omni-digital.co.uk', response)
+
+
+class TestPageChooserTemplateBlock(TestCase):
+    """Tests for the PageChooserTemplateBlock."""
+    def setUp(self):
+        self.block = internal_blocks.PageChooserTemplateBlock()
+
+    def test_parent_class(self):
+        """PageChooserTemplateBlock should inherit from PageChooserBlock."""
+        self.assertIsInstance(self.block, blocks.PageChooserBlock)
+
+    def test_renders(self):
+        """Ensure PageChooserTemplateBlock renders correctly."""
+        page = PageFactory.create(parent=None, title='foo')
+        SiteFactory.create(root_page=page)
+        with self.assertTemplateUsed(
+            template_name='blocks/page_chooser_block.html'
+        ):
+            response = self.block.render_basic(page)
+
+        self.assertIn(page.title, response)
+        self.assertIn(page.url, response)
+
+    def test_renders_blank(self):
+        """Ensure PageChooserTemplateBlock renders blank string when no page exists."""
+        response = self.block.render_basic('')
+
+        self.assertEqual(response, '')

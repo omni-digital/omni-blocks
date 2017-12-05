@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.core.exceptions import ValidationError
+from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -301,14 +302,16 @@ class OLBlock(ULBlock):
         label = 'Ordered List'
 
 
-class PageChooserTemplateBlock(blocks.StructBlock):
+class PageChooserTemplateBlock(blocks.PageChooserBlock):
     """Page chooser block that renders from a template."""
-    page = blocks.PageChooserBlock(icon='doc-empty-inverse')
+    template = 'blocks/page_chooser_block.html'
 
-    class Meta(object):
-        """Wagtail properties."""
-        icon = 'doc-empty-inverse'
-        template = 'blocks/page_chooser_block.html'
+    def render_basic(self, value, context=None):
+        """Override render_basic to use provided template."""
+        if value:
+            return render_to_string(self.template, {'page': value})
+        else:
+            return ''
 
 
 class QuoteBlock(blocks.BlockQuoteBlock):

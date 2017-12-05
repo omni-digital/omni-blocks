@@ -5,9 +5,9 @@ bumpversion==0.5.3
 wheel==0.29.0
 
 # Test requirements
-factory-boy>=2.8.1
-coverage==4.3.4
-mock>=1.0.1
-flake8>=2.1.0
-tox>=1.7.0
 codecov>=2.0.0
+coverage==4.3.4
+flake8>=2.1.0
+mock>=1.0.1
+tox>=1.7.0
+wagtail-factories==0.3.0
