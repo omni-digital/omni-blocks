@@ -21,4 +21,23 @@ class TestHasJumplist(TestCase):
         """ """
         field = Mock(block=JumpHBlock(tag='h2'))
         self.page.body = [field]
+
         self.assertTrue(has_jumplist(self.page, 'body'))
+
+
+class TestGetJumplist(TestCase):
+    def setUp(self):
+        self.page = PageFactory.create(title='Page', parent=None)
+
+    def test_no_jumplist_exists(self):
+        """ """
+        result = get_jumplist(self.page, 'body')
+        self.assertEqual(len(result), 0)
+
+    def test_jumplist_exists(self):
+        """ """
+        field = Mock(block=JumpHBlock(tag='h2'))
+        self.page.body = [field, field, field]
+        result = get_jumplist(self.page, 'body')
+
+        self.assertEqual(len(result), 3)
