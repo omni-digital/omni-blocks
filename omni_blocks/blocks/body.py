@@ -9,7 +9,7 @@ from omni_blocks.blocks.image_blocks import ImageGridBlock, LinkedImageGridBlock
 from omni_blocks.blocks import list_blocks
 from omni_blocks.blocks.chooser_blocks import PageChooserTemplateBlock
 from omni_blocks.blocks.struct_blocks import ButtonBlock, GoogleMapBlock, TwoColumnBlock
-from omni_blocks.blocks.text_blocks import HBlock, PullQuoteBlock, QuoteBlock
+from omni_blocks.blocks.text_blocks import HBlock, JumpHBlock, PullQuoteBlock, QuoteBlock
 
 
 class BodyStreamBlock(blocks.StreamBlock):
@@ -38,6 +38,7 @@ class BodyStreamBlock(blocks.StreamBlock):
     h2 = HBlock(tag='h2')
     h3 = HBlock(tag='h3')
     h4 = HBlock(tag='h4')
+    jump_h2 = JumpHBlock(tag='h2')
     paragraph = blocks.RichTextBlock()
     pull_quote = PullQuoteBlock()
     quote = QuoteBlock()
