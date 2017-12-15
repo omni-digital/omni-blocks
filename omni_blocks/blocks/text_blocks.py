@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.utils.safestring import mark_safe
+from django.utils.text import slugify
 from wagtail.wagtailcore.blocks import BlockQuoteBlock, CharBlock
 
 
@@ -26,6 +27,40 @@ class HBlock(CharBlock):
             tag=self.tag,
             contents=self.render_basic(value, context=context)
         ))
+
+
+class JumpHBlock(CharBlock):
+    """Special type of heading for adding jumplinks to a page."""
+    ANCHOR_PREFIX = 'heading'
+
+    def __init__(self, tag, icon='title', classname='title', *args, **kwargs):
+        """Load the tag into self."""
+        self.tag = tag
+        super(JumpHBlock, self).__init__(
+            icon=icon,
+            classname=classname,
+            *args,
+            **kwargs
+        )
+
+    @staticmethod
+    def make_jump_link(value):
+        """Create a jumpable link."""
+        return '{0}-{1}'.format(JumpHBlock.ANCHOR_PREFIX, slugify(value))
+
+    def get_context(self, value, parent_context=None):
+        """Add the tag and anchor into our context."""
+        context = super(JumpHBlock, self).get_context(
+            value,
+            parent_context=parent_context,
+        )
+        context['tag'] = self.tag
+        context['anchor'] = self.make_jump_link(value)
+        return context
+
+    class Meta:
+        template = 'blocks/jump_h_block.html'
+        name = 'Jump H2'
 
 
 class PullQuoteBlock(CharBlock):

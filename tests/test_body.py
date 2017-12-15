@@ -47,6 +47,7 @@ class TestBodyStreamBlock(TestCase):
             'h2',
             'h3',
             'h4',
+            'jump_h2',
             'paragraph',
             'pull_quote',
             'quote',
@@ -146,6 +147,12 @@ class TestBodyStreamBlock(TestCase):
         block = self.children.get('h4')
 
         self.assertIsInstance(block, internal_blocks.HBlock)
+
+    def test_jump_h2(self):
+        """Test BodyStreamBlock.jump_h2 has the expected parent."""
+        block = self.children.get('jump_h2')
+
+        self.assertIsInstance(block, internal_blocks.JumpHBlock)
 
     def test_paragraph(self):
         """Test BodyStreamBlock.paragraph has the expected parent."""
