@@ -66,6 +66,14 @@ class ULBlock(ListBlock):
         icon = 'list-ul'
         label = 'Unordered List'
 
+    def render_basic(self, value, context=None):
+        child_list = []
+        for child_value in value:
+            child_list.append((self.child_block.render(child_value, context=context),))
+
+        children = format_html_join('\n', '<li>{0}</li>', child_list)
+        return format_html("<ul class=\"written-content-list\">{0}</ul>", children)
+
 
 class OLBlock(ULBlock):
     """Block for displaying an ordered of rich text."""
@@ -80,4 +88,4 @@ class OLBlock(ULBlock):
             child_list.append((self.child_block.render(child_value, context=context),))
 
         children = format_html_join('\n', '<li>{0}</li>', child_list)
-        return format_html("<ol>{0}</ol>", children)
+        return format_html("<ol class=\"written-content-list\">{0}</ol>", children)

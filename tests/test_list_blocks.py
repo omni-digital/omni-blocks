@@ -6,6 +6,17 @@ from omni_blocks.blocks.list_blocks import OLBlock, ULBlock
 from omni_blocks.blocks.struct_blocks import FlowBlock, LinkBlock
 
 
+class TestULBlock(TestCase):
+    """Tests for the ULBlock."""
+    def test_render_basic(self):
+        """ Test block rendering """
+        block = ULBlock()
+        self.assertEqual(
+            '<ul class=\"written-content-list\"><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ul>',
+            block.render_basic(('1', '2', '3', '4'))
+        )
+
+
 class TestOLBlock(TestCase):
     """Tests for the OLBlock."""
     def test_parent_class(self):
@@ -16,7 +27,7 @@ class TestOLBlock(TestCase):
         """ Test block rendering """
         block = OLBlock()
         self.assertEqual(
-            '<ol><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ol>',
+            '<ol class=\"written-content-list\"><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ol>',
             block.render_basic(('1', '2', '3', '4'))
         )
 
