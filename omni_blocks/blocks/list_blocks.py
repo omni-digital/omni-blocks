@@ -29,7 +29,7 @@ class BasicCardGridBlock(ListBlock):
 
 
 class FlowListBlock(ListBlock):
-    """."""
+    """Block for displaying lists of data points."""
     def __init__(self, **kwargs):
         """
         Instantiates FlowBlock instance, then passes it to the super

@@ -71,7 +71,7 @@ class BasicCardBlock(blocks.StructBlock):
 
 
 class ColumnBlock(blocks.StructBlock):
-    """ """
+    """Block that can either contain text or an image."""
     image = ImageChooserBlock(required=False)
     paragraph = blocks.RichTextBlock(required=False)
 
