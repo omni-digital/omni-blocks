@@ -18,7 +18,7 @@ class TestHasJumplist(TestCase):
         self.assertFalse(has_jumplist(self.page, 'body'))
 
     def test_jumplist_exists(self):
-        """ """
+        """Ensure has_jumplist returns `True` when a JumpHBlock exists."""
         field = Mock(block=JumpHBlock(tag='h2'))
         self.page.body = [field]
 
@@ -30,12 +30,12 @@ class TestGetJumplist(TestCase):
         self.page = PageFactory.create(title='Page', parent=None)
 
     def test_no_jumplist_exists(self):
-        """ """
+        """Ensure get_jumplist returns an empty list if no JumpHBlock exists."""
         result = get_jumplist(self.page, 'body')
         self.assertEqual(len(result), 0)
 
     def test_jumplist_exists(self):
-        """ """
+        """Ensure get_jumplist returns the JumpHBlocks."""
         field = Mock(block=JumpHBlock(tag='h2'))
         self.page.body = [field, field, field]
         result = get_jumplist(self.page, 'body')
