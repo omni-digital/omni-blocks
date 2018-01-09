@@ -100,6 +100,14 @@ class TestLinkBlock(TestCase):
 
         self.assertIn(self.block.no_urls_error, context.exception.messages)
 
+    def test_data_validation_link_not_required(self):
+        """Ensure that if the block is not required, we don't raise validation errors."""
+        unrequired_block = struct_blocks.LinkBlock(required=False)
+        try:
+            unrequired_block.clean({'external_url': None, 'internal_url': None})
+        except ValidationError as e:
+            self.fail('LinkBlock clean raised exception when not required and links are empty.')
+
     def test_data_validation(self):
         """Ensure that the data is validated as expected."""
         key = 'external_url'

@@ -10,12 +10,35 @@ from omni_blocks.blocks.text_blocks import HBlock
 
 
 class LinkBlock(blocks.StructBlock):
-    """Block for adding links."""
+    """Block for adding links.
+
+    If required is set to false, we assume that a link does not need to be present.
+    """
     external_url = URLBlock(required=False)
     internal_url = blocks.PageChooserBlock(icon='doc-empty-inverse', required=False)
 
     both_urls_error = _('Please select either internal URL or external URL, not both.')
     no_urls_error = _('Please select an internal URL or add an external URL.')
+
+    def __init__(self, **kwargs):
+        """Override init to retrieve required value.
+
+        StructBlock does not have a "required" value in WagtailCore.
+        """
+        required = kwargs.pop('required', True)
+        super(LinkBlock, self).__init__(**kwargs)
+        self._required = required
+
+    @property
+    def required(self):
+        """Override base block required function to return our custom kwarg.
+
+        The StructBlock class in wagtail has no logic for what is "required",
+        as such we must override the method in the base Block class.
+
+        https://github.com/wagtail/wagtail/blob/master/wagtail/core/blocks/base.py#L315
+        """
+        return self._required
 
     def clean(self, value):
         cleaned_data = super(LinkBlock, self).clean(value)
@@ -24,9 +47,10 @@ class LinkBlock(blocks.StructBlock):
             msg = self.both_urls_error
             errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
-        if not cleaned_data.get('external_url') and not cleaned_data.get('internal_url'):
-            msg = self.no_urls_error
-            errors['external_url'] = errors['internal_url'] = ValidationError(msg)
+        if self.required:
+            if not cleaned_data.get('external_url') and not cleaned_data.get('internal_url'):
+                msg = self.no_urls_error
+                errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
         if errors:
             raise ValidationError(msg, params=errors)
