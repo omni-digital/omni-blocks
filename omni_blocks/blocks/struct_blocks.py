@@ -27,8 +27,18 @@ class LinkBlock(blocks.StructBlock):
         """
         required = kwargs.pop('required', True)
         super(LinkBlock, self).__init__(**kwargs)
-        self._either_required = required
+        self._required = required
 
+    @property
+    def required(self):
+        """Override base block required function to return our custom kwarg.
+
+        The StructBlock class in wagtail has no logic for what is "required",
+        as such we must override the method in the base Block class.
+
+        https://github.com/wagtail/wagtail/blob/master/wagtail/core/blocks/base.py#L315
+        """
+        return self._required
 
     def clean(self, value):
         cleaned_data = super(LinkBlock, self).clean(value)
@@ -37,7 +47,7 @@ class LinkBlock(blocks.StructBlock):
             msg = self.both_urls_error
             errors['external_url'] = errors['internal_url'] = ValidationError(msg)
 
-        if self._either_required:
+        if self.required:
             if not cleaned_data.get('external_url') and not cleaned_data.get('internal_url'):
                 msg = self.no_urls_error
                 errors['external_url'] = errors['internal_url'] = ValidationError(msg)
