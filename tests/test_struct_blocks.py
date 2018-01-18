@@ -105,7 +105,7 @@ class TestLinkBlock(TestCase):
         unrequired_block = struct_blocks.LinkBlock(required=False)
         try:
             unrequired_block.clean({'external_url': None, 'internal_url': None})
-        except ValidationError as e:
+        except ValidationError:
             self.fail('LinkBlock clean raised exception when not required and links are empty.')
 
     def test_data_validation(self):

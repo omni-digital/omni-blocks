@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks.field_block import RawHTMLBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 from omni_blocks import blocks as internal_blocks
@@ -53,7 +52,6 @@ class TestBodyStreamBlock(TestCase):
             'quote',
 
             # Wagtail blocks
-            'raw_html',
             'table',
         ]
         self.assertEqual(list(self.children.keys()), expected)
@@ -171,12 +169,6 @@ class TestBodyStreamBlock(TestCase):
         block = self.children.get('quote')
 
         self.assertIsInstance(block, internal_blocks.QuoteBlock)
-
-    def test_raw_html(self):
-        """Test BodyStreamBlock.raw_html has the expected parent."""
-        block = self.children.get('raw_html')
-
-        self.assertIsInstance(block, RawHTMLBlock)
 
     def test_table(self):
         """Test BodyStreamBlock.table has the expected parent."""

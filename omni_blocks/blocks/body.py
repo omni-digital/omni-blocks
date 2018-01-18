@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks.field_block import RawHTMLBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 from omni_blocks.blocks.image_blocks import ImageGridBlock, LinkedImageGridBlock
@@ -44,5 +43,4 @@ class BodyStreamBlock(blocks.StreamBlock):
     quote = QuoteBlock()
 
     # Wagtail blocks
-    raw_html = RawHTMLBlock()
     table = TableBlock()
