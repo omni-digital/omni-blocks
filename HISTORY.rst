@@ -7,3 +7,8 @@ History
 ++++++++++++++++++
 
 * First release on PyPI.
+
+1.2.0 (2018-02-22)
+++++++++++++++++++
+
+* Removed FlowListBlock from BodyStreamBlock

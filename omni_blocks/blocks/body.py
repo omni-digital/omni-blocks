@@ -23,7 +23,6 @@ class BodyStreamBlock(blocks.StreamBlock):
 
     # List blocks
     basic_card_grid = list_blocks.BasicCardGridBlock()
-    flow_list = list_blocks.FlowListBlock()
     ordered_list = list_blocks.OLBlock()
     unordered_list = list_blocks.ULBlock()
 
