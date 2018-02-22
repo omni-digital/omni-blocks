@@ -32,7 +32,6 @@ class TestBodyStreamBlock(TestCase):
 
             # List blocks
             'basic_card_grid',
-            'flow_list',
             'ordered_list',
             'unordered_list',
 
@@ -85,12 +84,6 @@ class TestBodyStreamBlock(TestCase):
         block = self.children.get('basic_card_grid')
 
         self.assertIsInstance(block, internal_blocks.BasicCardGridBlock)
-
-    def test_flow_list(self):
-        """Test BodyStreamBlock.flow_list has the expected parent."""
-        block = self.children.get('flow_list')
-
-        self.assertIsInstance(block, internal_blocks.FlowListBlock)
 
     def test_ordered_list(self):
         """Test BodyStreamBlock.ordered_list has the expected parent."""
