@@ -69,6 +69,7 @@ class PullQuoteBlock(CharBlock):
     class Meta(object):
         """Wagtail properties."""
         icon = 'openquote'
+        help_text = 'A repeated section of text from this page\'s main flow of content.'
         label = 'Pull Quote'
         template = 'blocks/pull_quote_block.html'
 
@@ -79,5 +80,6 @@ class QuoteBlock(BlockQuoteBlock):
     class Meta(object):
         """Wagtail properties."""
         icon = 'openquote'
+        help_text = 'A quote from a person which is in this page\'s main flow of content.'
         label = 'Quote'
         template = 'blocks/quote_block.html'
