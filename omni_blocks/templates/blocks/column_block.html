@@ -1,9 +1,10 @@
 {% load wagtailimages_tags %}
 
-<div class="col">
-    {% if item.image %}
-        {% image item.image height-600 %}
-    {% endif %}
 
+<div class="two_item_block__block">
+    {% if item.image %}
+        {% image item.image width-800 as im %}
+        <img class="two_item_block__image" src="{{ im.url }}" alt="{{ im.title }}">
+    {% endif %}
     {{ item.paragraph }}
-</div>
+</div><!-- .two_item_block__block -->
