@@ -1,4 +1,6 @@
-<div class="col-wrapper">
-    {% include "blocks/column_block.html" with item=self.left_column %}
-    {% include "blocks/column_block.html" with item=self.right_column %}
-</div>
+<section class="two_item_block">
+    <div class="two_item_block__inner">
+        {% include "blocks/column_block.html" with item=self.left_column %}
+        {% include "blocks/column_block.html" with item=self.right_column %}
+    </div><!-- .two_item_block__inner -->
+</section><!-- .two_item_block -->
