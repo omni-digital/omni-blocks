@@ -1,5 +1,7 @@
-<ul class="card-grid">
-    {% for child in self %}
-        {% include 'blocks/basic_card_block.html' with card=child %}
-    {% endfor %}
-</ul>
+<section class="basic_card_grid">
+    <ul class="basic_card_grid__list">
+        {% for child in self %}
+            {% include 'blocks/basic_card_block.html' with card=child %}
+        {% endfor %}
+    </ul><!-- .basic_card_grid__list -->
+</section><!-- .basic_card_grid -->
