@@ -1,13 +1,22 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<section class="card">
-    <header class="card_header">
-      <a href="{% include_block self.link %}">{{ self.title }}</a>
-    </header>
 
-    {% if self.image %}
-        {% image self.image height-200 class="card_image" %}
-    {% endif %}
-
-    {{ self.description }}
-</section>
+<section class="basic_card">
+    <div class="basic_card__inner">
+        {% if self.image %}
+            <a
+            class="basic_card__image"
+            href="{% include_block self.link %}"
+            aria-label="{{ self.title }}">
+                {% image self.image fill-480x320-c100 as im %}
+                <img src="{{ im.url }}" alt="">
+            </a><!-- .basic_card__image -->
+        {% endif %}
+        <a
+        class="basic_card__anchor"
+        href="{% include_block self.link %}">
+            <h2 class="basic_card__title">{{ self.title }}</h2>
+        </a><!-- .basic_card__anchor -->
+        <div class="basic_card__text">{{ self.description }}</div>
+    </div><!-- .basic_card__inner -->
+</section><!-- .basic_card -->
