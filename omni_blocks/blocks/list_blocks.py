@@ -72,7 +72,7 @@ class ULBlock(ListBlock):
             child_list.append((self.child_block.render(child_value, context=context),))
 
         children = format_html_join('\n', '<li>{0}</li>', child_list)
-        return format_html("<ul class=\"written-content-list\">{0}</ul>", children)
+        return format_html("<ul class=\"written_content_list\">{0}</ul>", children)
 
 
 class OLBlock(ULBlock):
@@ -88,4 +88,4 @@ class OLBlock(ULBlock):
             child_list.append((self.child_block.render(child_value, context=context),))
 
         children = format_html_join('\n', '<li>{0}</li>', child_list)
-        return format_html("<ol class=\"written-content-list\">{0}</ol>", children)
+        return format_html("<ol class=\"written_content_list\">{0}</ol>", children)

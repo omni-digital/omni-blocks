@@ -47,8 +47,9 @@ class TestPullQuoteBlock(TestCase):
     def test_render(self):
         """Test PullQuoteBlock.render renders as expected."""
         block = PullQuoteBlock()
-        expected = '<blockquote class="pullquote"><div class="blockquote__inner">' \
-            '<p>some text</p></div></blockquote>\n'
+        expected = '<blockquote class="pullquote"><div class="pullquote__inner">' \
+            '<p class="pullquote__quote">some text</p></div>' \
+            '<!-- .pullquote__inner --></blockquote><!-- .pullquote -->'
         result = block.render('some text', context={})
 
         self.assertEqual(result, expected)
@@ -63,8 +64,9 @@ class TestQuoteBlock(TestCase):
     def test_render(self):
         """Test QuoteBlock.render renders as expected."""
         block = QuoteBlock()
-        expected = '<blockquote><div class="blockquote__inner">' \
-            '<p>some text</p></div></blockquote>\n'
+        expected = '<blockquote class="blockquote"><div class="blockquote__inner">' \
+            '<p>some text</p></div><!-- .blockquote__inner -->' \
+            '</blockquote><!-- .blockquote -->'
         result = block.render('some text', context={})
 
         self.assertEqual(result, expected)
