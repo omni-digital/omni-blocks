@@ -1,12 +1,16 @@
 {% load wagtailimages_tags %}
 
 
-<ul class="image-grid">
-    {% for child in self %}
-        {% cycle 'col1' 'col2' 'col3' as colnum silent %}
-        {% image child fill-300x300-c100 as im %}
-        <li class="image-grid__item image-grid__item__{{ colnum }}">
-            <img src="{{ im.url }}" alt="" />
-        </li>
-    {% endfor %}
-</ul>
+<section class="image_grid">
+    <ul class="image_grid__list">
+        {% for child in self %}
+            <li class="image_grid__item">
+                {% image child width-1400 as im %}
+                <a class="image_grid__anchor" href="{{ im.url }}" aria-label="{{ im.alt }}">
+                    {% image child fill-420x420-c100 as im %}
+                    <img src="{{ im.url }}" alt="">
+                </a><!-- .image_grid__anchor -->
+            </li><!-- .image_grid__item -->
+        {% endfor %}
+    </ul><!-- .image_grid__list -->
+</section><!-- .image_grid -->
