@@ -1,3 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<a href="{% include_block self.link %}">{% image self.image height-600 class="card_image" %}</a>
+
+<a
+class="linked_image"
+href="{% include_block self.link %}">{% image self.image width-1600 %}</a>
