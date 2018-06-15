@@ -17,7 +17,7 @@ class LinkBlock(blocks.StructBlock):
     external_url = URLBlock(required=False)
     internal_url = blocks.PageChooserBlock(icon='doc-empty-inverse', required=False)
 
-    both_urls_error = _('Please select either internal URL or external URL, not both.')
+    both_urls_error = _('Please select either internal URL or external URL; not both.')
     no_urls_error = _('Please select an internal URL or add an external URL.')
 
     def __init__(self, **kwargs):
@@ -100,7 +100,7 @@ class ColumnBlock(blocks.StructBlock):
     paragraph = blocks.RichTextBlock(required=False)
 
     both_fields_error = _('Please add either an image or a paragraph.')
-    no_data_error = _('Please use either image or paragraph, not both')
+    no_data_error = _('Please use either image or paragraph; not both')
 
     def clean(self, value):
         cleaned_data = super(ColumnBlock, self).clean(value)

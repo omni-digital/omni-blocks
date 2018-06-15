@@ -19,6 +19,6 @@ class TestLinkedImageBlock(TestCase):
             'link': {'external_url': 'https://omni-digital.co.uk'},
         })
         self.assertIn(
-            '<a href="https://omni-digital.co.uk"><img alt="Test image"',
+            '<a class="linked_image" href="https://omni-digital.co.uk"><img alt="Test image"',
             block.render(value)
         )

@@ -16,9 +16,9 @@ class TestButtonBlock(TestCase):
             'title': 'Omni Digital',
             'link': {'external_url': 'https://omni-digital.co.uk'},
         })
-        self.assertIn('<p class="button">', block.render(value))
+        self.assertIn('<div class="button_block">', block.render(value))
         self.assertIn(
-            '<a href="https://omni-digital.co.uk">Omni Digital</a>',
+            '<a class="button__anchor" href="https://omni-digital.co.uk">Omni Digital</a>',
             block.render(value)
         )
 
@@ -126,6 +126,6 @@ class TestTitledLinkBlock(TestCase):
             'link': {'external_url': 'https://omni-digital.co.uk'},
         })
         self.assertIn(
-            '<a href="https://omni-digital.co.uk">Omni Digital</a>',
+            '<a class="titled_link" href="https://omni-digital.co.uk">Omni Digital</a>',
             block.render(value)
         )
