@@ -1,14 +1,10 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}
 
 
 <div class="page_chooser">
     <a
     class="page_chooser__anchor"
     href="{% pageurl page %}">
-        {% if page.teaser_image %}
-            {% page.teaser_image fill-480x320-c100 as im %}
-            <img class="page_chooser__image" src="{{ im.url }}" alt="">
-        {% endif %}
         <h1 class="page_chooser__title">{{ page.title }}</h1>
         {% if page.teaser %}
             <p class="page_chooser__teaser">{{ page.teaser }}</p>
