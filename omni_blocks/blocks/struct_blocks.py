@@ -81,11 +81,11 @@ class TitledLinkBlock(blocks.StructBlock):
 
 
 class BasicCardBlock(blocks.StructBlock):
-    """A basic material card block."""
+    """A basic card block."""
     title = HBlock(tag='h2')
     image = ImageChooserBlock(required=False)
     link = LinkBlock(required=False)
-    description = blocks.RichTextBlock(required=False)
+    description = blocks.TextBlock(required=False)
 
     class Meta(object):
         """Wagtail properties."""
