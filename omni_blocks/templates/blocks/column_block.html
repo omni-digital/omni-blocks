@@ -6,5 +6,7 @@
         {% image item.image width-800 as im %}
         <img class="two_item_block__image" src="{{ im.url }}" alt="{{ im.title }}">
     {% endif %}
-    {{ item.paragraph }}
+    {% if item.paragraph %}
+        {{ item.paragraph }}
+    {% endif %}
 </div><!-- .two_item_block__block -->
