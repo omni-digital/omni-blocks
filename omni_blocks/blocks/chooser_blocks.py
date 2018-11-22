@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.template.loader import render_to_string
-from wagtail.wagtailcore.blocks import PageChooserBlock
+from wagtail.core.blocks import PageChooserBlock
 
 
 class PageChooserTemplateBlock(PageChooserBlock):

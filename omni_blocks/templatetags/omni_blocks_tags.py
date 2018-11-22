@@ -13,7 +13,7 @@ register = template.Library()
 Anchor = namedtuple('Anchor', ['value', 'href'])
 
 
-@register.assignment_tag
+@register.simple_tag
 def has_jumplist(calling_page, field):
     """
     Determine if one or more JumpHBlocks exist within a streamfield.
@@ -26,7 +26,7 @@ def has_jumplist(calling_page, field):
     return any(isinstance(item.block, JumpHBlock) for item in body)
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_jumplist(calling_page, field):
     """
     Gets all JumpHBlocks from a given streamfield and loads them into an array.

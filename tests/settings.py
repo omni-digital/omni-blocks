@@ -28,10 +28,10 @@ INSTALLED_APPS = [
     'taggit',
 
     'wagtail.contrib.table_block',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailcore',
-    'wagtail.wagtailusers',
+    'wagtail.admin',
+    'wagtail.images',
+    'wagtail.core',
+    'wagtail.users',
 
     'django.contrib.admin',
     'django.contrib.auth',

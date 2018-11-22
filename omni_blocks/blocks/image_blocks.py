@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 
-from wagtail.wagtailcore.blocks import StructBlock
-from wagtail.wagtailcore.blocks.list_block import ListBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.core.blocks import StructBlock
+from wagtail.core.blocks.list_block import ListBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 from omni_blocks.blocks.struct_blocks import LinkBlock
 
