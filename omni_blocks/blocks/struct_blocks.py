@@ -2,9 +2,9 @@ from __future__ import unicode_literals
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks.field_block import URLBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.core import blocks
+from wagtail.core.blocks.field_block import URLBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 from omni_blocks.blocks.text_blocks import HBlock
 

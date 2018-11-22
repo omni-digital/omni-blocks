@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from wagtail.wagtailcore.blocks import BlockQuoteBlock, CharBlock
+from wagtail.core.blocks import BlockQuoteBlock, CharBlock
 
 
 class HBlock(CharBlock):

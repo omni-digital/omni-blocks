@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils.crypto import get_random_string
-from wagtail.wagtailcore.blocks import StructBlock
-from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
+from wagtail.core.blocks import StructBlock
+from wagtail.images.tests.utils import Image, get_test_image_file
 from wagtail_factories import PageFactory, SiteFactory
 
 from omni_blocks.blocks import struct_blocks

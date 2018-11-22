@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
+from wagtail.images.tests.utils import Image, get_test_image_file
 
 from omni_blocks.blocks.image_blocks import LinkedImageBlock
 

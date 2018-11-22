@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 
 from django.utils.html import format_html, format_html_join
-from wagtail.wagtailcore.blocks import CharBlock
-from wagtail.wagtailcore.blocks.list_block import ListBlock
+from wagtail.core.blocks import CharBlock
+from wagtail.core.blocks.list_block import ListBlock
 
 from omni_blocks.blocks.struct_blocks import BasicCardBlock, FlowBlock
 

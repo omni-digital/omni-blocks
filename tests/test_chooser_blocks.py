@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.wagtailcore.blocks import PageChooserBlock
+from wagtail.core.blocks import PageChooserBlock
 from wagtail_factories import PageFactory, SiteFactory
 
 from omni_blocks.blocks.chooser_blocks import PageChooserTemplateBlock

@@ -1,6 +1,6 @@
 from django.test import TestCase
-from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.core.blocks import CharBlock, RichTextBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 from omni_blocks.blocks.list_blocks import OLBlock, ULBlock
 from omni_blocks.blocks.struct_blocks import FlowBlock, LinkBlock

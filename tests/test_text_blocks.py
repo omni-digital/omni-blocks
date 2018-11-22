@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.wagtailcore.blocks import CharBlock, BlockQuoteBlock
+from wagtail.core.blocks import CharBlock, BlockQuoteBlock
 
 from omni_blocks.blocks.text_blocks import HBlock, JumpHBlock, PullQuoteBlock, QuoteBlock
 
