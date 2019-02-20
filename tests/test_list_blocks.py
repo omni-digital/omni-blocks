@@ -12,7 +12,7 @@ class TestULBlock(TestCase):
         """ Test block rendering """
         block = ULBlock()
         self.assertEqual(
-            '<ul class=\"written_content_list\"><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ul>',
+            '<ul class=\"reading_content__list\"><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ul>',
             block.render_basic(('1', '2', '3', '4'))
         )
 
@@ -27,7 +27,7 @@ class TestOLBlock(TestCase):
         """ Test block rendering """
         block = OLBlock()
         self.assertEqual(
-            '<ol class=\"written_content_list\"><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ol>',
+            '<ol class=\"reading_content__list\"><li>1</li>\n<li>2</li>\n<li>3</li>\n<li>4</li></ol>',
             block.render_basic(('1', '2', '3', '4'))
         )
 
