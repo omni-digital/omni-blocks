@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 
 class OmniBlocksConfig(AppConfig):
-    name = 'omni_blocks'
+    name = "omni_blocks"

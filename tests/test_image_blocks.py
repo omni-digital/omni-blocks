@@ -7,18 +7,19 @@ from omni_blocks.blocks.image_blocks import LinkedImageBlock
 class TestLinkedImageBlock(TestCase):
     def setUp(self):
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_image_link(self):
         """Ensure that the image link renders correctly"""
         block = LinkedImageBlock()
-        value = block.to_python({
-            'image': self.image.pk,
-            'link': {'external_url': 'https://omni-digital.co.uk'},
-        })
+        value = block.to_python(
+            {
+                "image": self.image.pk,
+                "link": {"external_url": "https://omni-digital.co.uk"},
+            }
+        )
         self.assertIn(
             '<a class="linked_image" href="https://omni-digital.co.uk"><img alt="Test image"',
-            block.render(value)
+            block.render(value),
         )
