@@ -45,12 +45,21 @@ Does the code actually work?
 Supported Versions
 ------------------
 
-Wagtail
+omni-blocks 3.x
+~~~~~~~~~~~~~~~
 
-* 1.11
-* 1.12 LTS
+Python: 3.6
 
-Django
+Django: 2.0, 2.1
 
-* 1.10
-* 1.11 LTS
+Wagtail: 2.1, 2.2, 2.3, 2.4
+
+
+omni-blocks 2.0.4
+~~~~~~~~~~~~~~~~~
+
+Python: 2.7, 3.4, 3.5, 3.6
+
+Django:1.10, 1.11
+
+Wagtail: 1.11, 1.12
