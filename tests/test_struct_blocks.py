@@ -13,10 +13,7 @@ class TestButtonBlock(TestCase):
         """Ensure that the block renders as expected."""
         block = struct_blocks.ButtonBlock()
         value = block.to_python(
-            {
-                "title": "Omni Digital",
-                "link": {"external_url": "https://omni-digital.co.uk"},
-            }
+            {"title": "Omni Digital", "link": {"external_url": "https://omni-digital.co.uk"}}
         )
         self.assertIn('<div class="button_block">', block.render(value))
         self.assertIn(
@@ -30,9 +27,7 @@ class TestColumnBlock(TestCase):
 
     def setUp(self):
         self.block = struct_blocks.ColumnBlock
-        self.image = Image.objects.create(
-            title="Test image", file=get_test_image_file()
-        )
+        self.image = Image.objects.create(title="Test image", file=get_test_image_file())
 
     def test_parent_class(self):
         """Test ColumnBlock is a subclass of StructBlock."""
@@ -86,10 +81,7 @@ class TestLinkBlock(TestCase):
         """Ensure that the data is validated as expected."""
         with self.assertRaises(ValidationError) as context:
             self.block.clean(
-                {
-                    "external_url": "https://omni-digital.co.uk",
-                    "internal_url": self.page.pk,
-                }
+                {"external_url": "https://omni-digital.co.uk", "internal_url": self.page.pk}
             )
 
         self.assertIn(self.block.both_urls_error, context.exception.messages)
@@ -107,9 +99,7 @@ class TestLinkBlock(TestCase):
         try:
             unrequired_block.clean({"external_url": None, "internal_url": None})
         except ValidationError:
-            self.fail(
-                "LinkBlock clean raised exception when not required and links are empty."
-            )
+            self.fail("LinkBlock clean raised exception when not required and links are empty.")
 
     def test_data_validation(self):
         """Ensure that the data is validated as expected."""
@@ -125,10 +115,7 @@ class TestTitledLinkBlock(TestCase):
         """Ensure that the block renders as expected."""
         block = struct_blocks.TitledLinkBlock()
         value = block.to_python(
-            {
-                "title": "Omni Digital",
-                "link": {"external_url": "https://omni-digital.co.uk"},
-            }
+            {"title": "Omni Digital", "link": {"external_url": "https://omni-digital.co.uk"}}
         )
         self.assertIn(
             '<a class="titled_link" href="https://omni-digital.co.uk">Omni Digital</a>',

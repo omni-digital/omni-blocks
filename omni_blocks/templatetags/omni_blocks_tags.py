@@ -41,9 +41,6 @@ def get_jumplist(calling_page, field):
     for item in body:
         if isinstance(item.block, JumpHBlock):
             anchors.append(
-                Anchor(
-                    value=item.value,
-                    href="#{}".format(JumpHBlock.make_jump_link(item.value)),
-                )
+                Anchor(value=item.value, href="#{}".format(JumpHBlock.make_jump_link(item.value)))
             )
     return anchors

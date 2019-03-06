@@ -49,9 +49,7 @@ class LinkBlock(blocks.StructBlock):
             errors["external_url"] = errors["internal_url"] = ValidationError(msg)
 
         if self.required:
-            if not cleaned_data.get("external_url") and not cleaned_data.get(
-                "internal_url"
-            ):
+            if not cleaned_data.get("external_url") and not cleaned_data.get("internal_url"):
                 msg = self.no_urls_error
                 errors["external_url"] = errors["internal_url"] = ValidationError(msg)
 

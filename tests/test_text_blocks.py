@@ -1,12 +1,7 @@
 from django.test import TestCase
 from wagtail.core.blocks import CharBlock, BlockQuoteBlock
 
-from omni_blocks.blocks.text_blocks import (
-    HBlock,
-    JumpHBlock,
-    PullQuoteBlock,
-    QuoteBlock,
-)
+from omni_blocks.blocks.text_blocks import HBlock, JumpHBlock, PullQuoteBlock, QuoteBlock
 
 
 class TestHBlock(TestCase):
@@ -32,9 +27,7 @@ class TestJumpHBlock(TestCase):
 
     def test_make_jump_link(self):
         """Make Jump Link should return a slugified url."""
-        self.assertEqual(
-            "heading-my-cool-link", self.block.make_jump_link("My Cool Link")
-        )
+        self.assertEqual("heading-my-cool-link", self.block.make_jump_link("My Cool Link"))
 
     def test_block_renders(self):
         """Ensure the block renders."""
