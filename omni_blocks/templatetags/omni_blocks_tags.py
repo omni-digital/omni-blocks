@@ -10,7 +10,7 @@ from omni_blocks.blocks.text_blocks import JumpHBlock
 register = template.Library()
 
 
-Anchor = namedtuple('Anchor', ['value', 'href'])
+Anchor = namedtuple("Anchor", ["value", "href"])
 
 
 @register.simple_tag
@@ -40,7 +40,7 @@ def get_jumplist(calling_page, field):
     body = getattr(calling_page, field, [])
     for item in body:
         if isinstance(item.block, JumpHBlock):
-            anchors.append(Anchor(value=item.value, href='#{}'.format(
-                JumpHBlock.make_jump_link(item.value)
-            )))
+            anchors.append(
+                Anchor(value=item.value, href="#{}".format(JumpHBlock.make_jump_link(item.value)))
+            )
     return anchors

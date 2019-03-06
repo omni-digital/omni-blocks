@@ -6,15 +6,17 @@ name = "pypi"
 [dev-packages]
 pytest = "==4.3.0"
 pytest-django = "==3.4.8"
-
-[packages]
-wagtail = ">=2.3"
+black = "==18.9b0"
+pre-commit = ">=1.14.4,<1.15"
 bumpversion = "==0.5.3"
 codecov = ">=2.0.0"
 coverage = "==4.3.4"
 "flake8" = ">=2.1.0"
 mock = ">=1.0.1"
 tox = ">=1.8"
+
+[packages]
+wagtail = ">=2.3,<=2.4"
 wagtail-factories = "==1.1.0"
 
 [requires]

@@ -23,13 +23,15 @@ class BasicCardGridBlock(ListBlock):
 
     class Meta(object):
         """Wagtail properties."""
-        icon = 'form'
-        label = 'Basic Card Grid'
-        template = 'blocks/basic_card_grid_block.html'
+
+        icon = "form"
+        label = "Basic Card Grid"
+        template = "blocks/basic_card_grid_block.html"
 
 
 class FlowListBlock(ListBlock):
     """Block for displaying lists of data points."""
+
     def __init__(self, **kwargs):
         """
         Instantiates FlowBlock instance, then passes it to the super
@@ -43,13 +45,15 @@ class FlowListBlock(ListBlock):
 
     class Meta(object):
         """Wagtail properties."""
-        icon = 'list-ul'
-        label = 'Flow List'
-        template = 'blocks/flow_list_block.html'
+
+        icon = "list-ul"
+        label = "Flow List"
+        template = "blocks/flow_list_block.html"
 
 
 class ULBlock(ListBlock):
     """Block for displaying an unordered of rich text."""
+
     def __init__(self, **kwargs):
         """
         Instantiates an RichTextBlock instance,
@@ -63,29 +67,32 @@ class ULBlock(ListBlock):
 
     class Meta(object):
         """Wagtail properties."""
-        icon = 'list-ul'
-        label = 'Unordered List'
+
+        icon = "list-ul"
+        label = "Unordered List"
 
     def render_basic(self, value, context=None):
         child_list = []
         for child_value in value:
             child_list.append((self.child_block.render(child_value, context=context),))
 
-        children = format_html_join('\n', '<li>{0}</li>', child_list)
-        return format_html("<ul class=\"written_content_list\">{0}</ul>", children)
+        children = format_html_join("\n", "<li>{0}</li>", child_list)
+        return format_html('<ul class="written_content_list">{0}</ul>', children)
 
 
 class OLBlock(ULBlock):
     """Block for displaying an ordered of rich text."""
+
     class Meta(object):
         """Wagtail properties."""
-        icon = 'list-ol'
-        label = 'Ordered List'
+
+        icon = "list-ol"
+        label = "Ordered List"
 
     def render_basic(self, value, context=None):
         child_list = []
         for child_value in value:
             child_list.append((self.child_block.render(child_value, context=context),))
 
-        children = format_html_join('\n', '<li>{0}</li>', child_list)
-        return format_html("<ol class=\"written_content_list\">{0}</ol>", children)
+        children = format_html_join("\n", "<li>{0}</li>", child_list)
+        return format_html('<ol class="written_content_list">{0}</ol>', children)

@@ -23,19 +23,22 @@ class ImageGridBlock(ListBlock):
 
     class Meta(object):
         """Wagtail properties."""
-        icon = 'image'
-        label = 'Image Grid'
-        template = 'blocks/image_grid_block.html'
+
+        icon = "image"
+        label = "Image Grid"
+        template = "blocks/image_grid_block.html"
 
 
 class LinkedImageBlock(StructBlock):
     """Image block wrapped by a href link."""
+
     image = ImageChooserBlock(required=True)
     link = LinkBlock(required=True)
 
     class Meta(object):
         """Wagtail properties."""
-        template = 'blocks/linked_image_block.html'
+
+        template = "blocks/linked_image_block.html"
 
 
 class LinkedImageGridBlock(ListBlock):
@@ -54,6 +57,7 @@ class LinkedImageGridBlock(ListBlock):
 
     class Meta(object):
         """Wagtail properties."""
-        icon = 'image'
-        label = 'Linked Image Grid'
-        template = 'blocks/linked_image_grid_block.html'
+
+        icon = "image"
+        label = "Linked Image Grid"
+        template = "blocks/linked_image_grid_block.html"
