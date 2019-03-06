@@ -14,6 +14,7 @@ coverage = "==4.3.4"
 "flake8" = ">=2.1.0"
 mock = ">=1.0.1"
 tox = ">=1.8"
+pyyaml = "==4.2b1"
 
 [packages]
 wagtail = ">=2.3,<=2.4"
