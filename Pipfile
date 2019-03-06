@@ -16,7 +16,7 @@ mock = ">=1.0.1"
 tox = ">=1.8"
 
 [packages]
-wagtail = ">=2.3"
+wagtail = ">=2.3,<=2.4"
 wagtail-factories = "==1.1.0"
 
 [requires]
