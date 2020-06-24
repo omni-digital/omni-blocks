@@ -6,34 +6,39 @@ from wagtail.core.blocks import BlockQuoteBlock, CharBlock
 
 
 class HBlock(CharBlock):
-    """A block for displaying headings."""
-    def __init__(self, tag, icon='title', classname='title', slugified_id=False, *args, **kwargs):
+    """A block for displaying headings, with ID for use in anchors."""
+    def __init__(
+        self,
+        tag,
+        icon='title',
+        classname='title',
+        slugified_id=False,
+        *args,
+        **kwargs,
+    ):
         self.tag = tag
         self.slugified_id = slugified_id
         super(HBlock, self).__init__(
             icon=icon,
             classname=classname,
             *args,
-            **kwargs
+            **kwargs,
         )
 
-    def render(self, value, context=None):
-        """
-        Renders the block contents and returns them as a safe string.
-
-        :param value: The value from the database to render
-        :return: Safe String - Rendered block content
-        """
+    def get_context(self, value, parent_context=None):
+        """Add the tag, content, and slugified ID into our context."""
+        context = super(HBlock, self).get_context(
+            value,
+            parent_context=parent_context,
+        )
+        context['tag'] = self.tag
         if self.slugified_id:
-            html_string = '<{tag} id="{id}">{contents}</{tag}>'
-        else:
-            html_string = '<{tag}>{contents}</{tag}>'
-        contents=self.render_basic(value, context=context)
-        return mark_safe(html_string.format(
-            tag=self.tag,
-            id=slugify(contents),
-            contents=contents
-        ))
+            context['slugified_id'] = slugify(value)
+        return context
+
+    class Meta:
+        template = 'blocks/heading.html'
+
 
 
 class JumpHBlock(CharBlock):
